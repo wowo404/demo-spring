@@ -14,6 +14,7 @@
     	<module>demo-cache-memcached</module>
         <module>demo-cache-redis-jedis</module>
         <module>demo-database-h2</module>
+        <module>demo-database-influxdb</module>
     	<module>demo-database-mongodb</module>
     	<module>demo-database-mysql</module>
     </modules>
