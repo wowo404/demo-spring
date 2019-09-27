@@ -126,7 +126,7 @@ public class MemcachedDemo {
 
     public static void get() throws InterruptedException, MemcachedException, TimeoutException, IOException {
         MemcachedClient client = configuration.getXMClient();
-        Object obj = client.get("manufacture_configure_00000145");
+        Object obj = client.get("pointPar");
         System.out.println("get from memcached:" + obj);
 
         client.shutdown();

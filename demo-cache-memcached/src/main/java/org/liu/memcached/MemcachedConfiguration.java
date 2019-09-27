@@ -11,6 +11,7 @@ import java.io.IOException;
 public class MemcachedConfiguration {
 
     private String servers = "192.168.17.230:11211";
+//    private String servers = "127.0.0.1:12211";
 
     private int poolSize = 10;
 

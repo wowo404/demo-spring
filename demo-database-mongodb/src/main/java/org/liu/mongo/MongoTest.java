@@ -30,17 +30,17 @@ public class MongoTest {
 //        String password = "user_test";
         //开州水泥厂正式环境
         //spring.data.mongodb.uri=mongodb://user_kzsn:user_kzsn@172.16.17.4:27017/manufacture_kzsn
-        String host = "172.16.17.4";
-        int port = 27017;
-        String db = "manufacture_kzsn";
-        String username = "user_kzsn";
-        String password = "user_kzsn";
-        //开发环境
-//        String host = "192.168.17.230";
+//        String host = "172.16.17.4";
 //        int port = 27017;
-//        String db = "logistics_test";
-//        String username = "root";
-//        String password = "root";
+//        String db = "manufacture_kzsn";
+//        String username = "user_kzsn";
+//        String password = "user_kzsn";
+        //开发环境
+        String host = "192.168.17.230";
+        int port = 27017;
+        String db = "logistics_test";
+        String username = "root";
+        String password = "root";
         List<ServerAddress> addresses = new ArrayList<>();
         ServerAddress address = new ServerAddress(host, port);
         addresses.add(address);
