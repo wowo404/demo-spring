@@ -22,17 +22,25 @@ public class RabbitController {
     private String routingKeySettingsInfo;
     @Value("${mq.routingkey.my}")
     private String routingKeyMy;
+    @Value("${read.properties.from.file}")
+    private String testReadPropertiesFromFile;
+
+    @GetMapping("testReadPropertiesFromFile")
+    public String testReadPropertiesFromFile() {
+        System.out.println(testReadPropertiesFromFile);
+        return "success";
+    }
 
     @GetMapping("send")
-    public String send(String msg){
+    public String send(String msg) {
         rabbitTemplate.convertAndSend(directExchange, routingKeyCommand, msg);
         return "success";
     }
 
     @GetMapping("concurrentSend")
-    public String concurrentSend(String msg){
+    public String concurrentSend(String msg) {
         CyclicBarrier barrier = new CyclicBarrier(10);
-        for(int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
             int finalI = i;
             new Thread(() -> {
                 try {

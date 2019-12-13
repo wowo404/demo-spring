@@ -19,6 +19,7 @@
         <property name="locations">
             <list>
                 <value>classpath:application.properties</value>
+                <value>file:D:\projects\idea-workspace\test.properties</value>
             </list>
         </property>
     </bean>
