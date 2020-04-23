@@ -12,6 +12,7 @@ spring:
       retry:
         enabled: true
         initial-interval: 1s
+    publisher-returns: false
 
 file:
   upload:

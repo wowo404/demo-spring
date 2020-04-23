@@ -15,6 +15,7 @@
         <module>demo-springboot-activiti</module>
         <module>demo-springboot-rabbitmq</module>
         <module>demo-springboot-wechat-mp</module>
+        <module>demo-spring-lettuce</module>
     </modules>
 
 	<properties>
