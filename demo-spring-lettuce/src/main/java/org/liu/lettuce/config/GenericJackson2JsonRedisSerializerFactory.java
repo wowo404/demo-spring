@@ -1,0 +1,56 @@
+package org.liu.lettuce.config;
+
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import org.springframework.cache.support.NullValue;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.lang.Nullable;
+import org.springframework.util.StringUtils;
+
+import java.io.IOException;
+
+public class GenericJackson2JsonRedisSerializerFactory {
+
+    public static GenericJackson2JsonRedisSerializer create(){
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new SimpleModule().addSerializer(new NullValueSerializer("")));
+        mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        return new GenericJackson2JsonRedisSerializer(mapper);
+    }
+
+    private static class NullValueSerializer extends StdSerializer<NullValue> {
+
+        private static final long serialVersionUID = 1999052150548658808L;
+        private final String classIdentifier;
+
+        /**
+         * @param classIdentifier can be {@literal null} and will be defaulted to {@code @class}.
+         */
+        NullValueSerializer(@Nullable String classIdentifier) {
+
+            super(NullValue.class);
+            this.classIdentifier = StringUtils.hasText(classIdentifier) ? classIdentifier : "@class";
+        }
+
+        /*
+         * (non-Javadoc)
+         * @see com.fasterxml.jackson.databind.ser.std.StdSerializer#serialize(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator, com.fasterxml.jackson.databind.SerializerProvider)
+         */
+        @Override
+        public void serialize(NullValue value, JsonGenerator jgen, SerializerProvider provider)
+                throws IOException {
+
+            jgen.writeStartObject();
+            jgen.writeStringField(classIdentifier, NullValue.class.getName());
+            jgen.writeEndObject();
+        }
+
+    }
+
+}
