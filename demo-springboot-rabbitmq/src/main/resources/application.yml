@@ -3,16 +3,24 @@ server:
 
 spring:
   rabbitmq:
-    host: 192.168.17.230
+    host: 47.99.217.240
     port: 5672
-    username: user_test
-    password: user_test
-    virtual-host: manufacture
+    username: admin
+    password: admin
+    virtual-host: my-cloud
     template:
       retry:
         enabled: true
         initial-interval: 1s
+      exchange: cloud-exchange
+      routing-key: cloud-routing-key
+      default-receive-queue: cloud-queue
     publisher-returns: false
+    listener:
+      type: direct
+      direct:
+        retry:
+          enabled: true
 
 file:
   upload:
