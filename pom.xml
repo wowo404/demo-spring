@@ -12,10 +12,13 @@
     <modules>
         <module>demo-spring-websocket</module>
         <module>demo-spring-rabbitmq</module>
+        <module>demo-spring-lettuce</module>
         <module>demo-springboot-activiti</module>
         <module>demo-springboot-rabbitmq</module>
         <module>demo-springboot-wechat-mp</module>
-        <module>demo-spring-lettuce</module>
+        <module>demo-springboot-mongodb</module>
+        <module>demo-springboot-shiro</module>
+        <module>demo-only-spring</module>
     </modules>
 
 	<properties>
