@@ -19,6 +19,7 @@
         <module>demo-springboot-mongodb</module>
         <module>demo-springboot-shiro</module>
         <module>demo-only-spring</module>
+        <module>demo-spring-springmvc-mybatis</module>
     </modules>
 
 	<properties>
