@@ -17,7 +17,7 @@
         <context:exclude-filter type="custom" expression="org.liu.ssm.controller"/>
     </context:component-scan>
 
-    <context:property-placeholder location="application.properties"/>
+    <context:property-placeholder location="classpath:application.properties"/>
 
     <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
         <property name="driverClassName" value="${jdbc.driver}"/>
@@ -26,12 +26,18 @@
         <property name="password" value="${jdbc.password}"/>
     </bean>
 
-    <bean class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="org.liu.ssm.dao"/>
     </bean>
 
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="org.liu.dao"/>
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath*:mappers/*Mapper.xml"/>
+        <property name="typeAliasesPackage" value="org.liu.ssm.model"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactory"/>
     </bean>
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
