@@ -15,6 +15,7 @@
         <!--定义控制台输出格式-->
         <encoder>
             <pattern>%d [%thread] %-5level %logger{36} [%file : %line] - %msg%n</pattern>
+            <charset>utf-8</charset>
         </encoder>
     </appender>
 
@@ -25,8 +26,8 @@
         <file>${file.path}/${app.name}.log</file>
         <!--定义日志滚动的策略-->
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <!--定义文件滚动时的文件名的格式-->
-            <fileNamePattern>${file.path}/${app.name}.%d{yyyy-MM-dd.HH}.log.zip</fileNamePattern>
+            <!--定义文件滚动时的文件名的格式，WARNING:一定要有%i和%d，不然会输出到文件失败，因为logback没有启动这个appender-->
+            <fileNamePattern>${file.path}/${app.name}.%d{yyyy-MM-dd.HH}.%i.log.zip</fileNamePattern>
             <!--60天的时间周期，日志量最大20GB-->
             <maxHistory>60</maxHistory>
             <!--每个日志文件最大100MB-->
