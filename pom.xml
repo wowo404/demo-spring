@@ -22,6 +22,7 @@
         <module>demo-spring-springmvc-mybatis</module>
         <module>demo-springboot-cors</module>
         <module>demo-springboot-cors</module>
+        <module>demo-springboot-shardingsphere</module>
     </modules>
 
 	<properties>
