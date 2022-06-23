@@ -20,6 +20,8 @@
         <module>demo-springboot-shiro</module>
         <module>demo-only-spring</module>
         <module>demo-spring-springmvc-mybatis</module>
+        <module>demo-springboot-cors</module>
+        <module>demo-springboot-cors</module>
     </modules>
 
 	<properties>
