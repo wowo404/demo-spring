@@ -1,6 +1,7 @@
 package org.liu.demo.mongodb.pojo;
 
 import lombok.Data;
+import lombok.ToString;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.math.BigDecimal;
@@ -10,6 +11,7 @@ import java.util.Date;
  * @Author lzs
  * @Date 2022/10/28 16:35
  **/
+@ToString
 @Data
 public class Movie {
     @MongoId

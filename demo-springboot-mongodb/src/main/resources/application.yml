@@ -10,3 +10,5 @@ spring:
 #      password: 123456
 #      database: test
       uri: mongodb://test:123456@localhost:27017/test
+  jpa:
+    show-sql: true

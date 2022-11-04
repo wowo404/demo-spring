@@ -6,6 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.liu.demo.mongodb.pojo.Movie;
 import org.liu.demo.mongodb.repository.MovieRepository;
 import org.liu.demo.mongodb.service.MovieService;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -55,4 +58,28 @@ public class MovieServiceImpl implements MovieService {
         return "success";
     }
 
+    @Override
+    public List<Movie> queryAll(String title, Double doubanScore, String firstManActor) {
+        Movie movie = new Movie();
+        movie.setTitle(title);
+        movie.setDoubanScore(doubanScore);
+        movie.setFirstManActor(firstManActor);
+
+        ExampleMatcher exampleMatcher = ExampleMatcher.matching()
+                .withMatcher("title", ExampleMatcher.GenericPropertyMatcher::contains)
+                .withMatcher("firstManActor", ExampleMatcher.GenericPropertyMatchers.contains());
+
+        return movieRepository.findAll(Example.of(movie, exampleMatcher), Sort.by(Sort.Order.asc("runTime"), Sort.Order.desc("year")));
+    }
+
+    @Override
+    public List<Movie> queryByNaming(String title, Double doubanScore) {
+        Sort sort = Sort.by(Sort.Order.asc("runTime"), Sort.Order.desc("year"));
+        return movieRepository.findByTitleContainingAndDoubanScoreGreaterThanEqual(title, doubanScore, sort);
+    }
+
+    @Override
+    public List<Movie> queryByNativeJson(String title, Double doubanScore) {
+        return movieRepository.findByNativeJson(title, doubanScore);
+    }
 }
