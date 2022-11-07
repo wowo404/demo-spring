@@ -12,7 +12,7 @@ import java.io.Serializable;
 @ToString
 @Accessors(chain = true)
 @Data
-@Document("company_info")
+@Document(collection = "company_info_#{T(org.liu.demo.mongodb.util.CollectionNameUtils).getSuffix()}")
 public class Company implements Serializable {
     /**
      * ID
