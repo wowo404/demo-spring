@@ -28,6 +28,7 @@ class CompanyServiceTest {
     void testUseMongoTemplate() throws InvocationTargetException, IllegalAccessException {
         Company company = new Company();
         BeanValueUtils.autoSetValue(company);
+        company.setPassword(null);
         Company company_202201 = mongoTemplate.insert(company, "company_202201");
         System.out.println(company_202201);
     }
