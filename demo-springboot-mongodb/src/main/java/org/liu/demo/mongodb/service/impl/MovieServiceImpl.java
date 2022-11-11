@@ -6,9 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.liu.demo.mongodb.pojo.Movie;
 import org.liu.demo.mongodb.repository.MovieRepository;
 import org.liu.demo.mongodb.service.MovieService;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -81,5 +79,11 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<Movie> queryByNativeJson(String title, Double doubanScore) {
         return movieRepository.findByNativeJson(title, doubanScore);
+    }
+
+    @Override
+    public Page<Movie> pageList(int page, int size, String title, Double doubanScore) {
+        PageRequest pageRequest = PageRequest.of(page - 1, size);
+        return movieRepository.pageByNativeJson(title, doubanScore, pageRequest);
     }
 }

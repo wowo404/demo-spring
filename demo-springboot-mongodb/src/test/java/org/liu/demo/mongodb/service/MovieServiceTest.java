@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.liu.demo.mongodb.pojo.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ class MovieServiceTest {
 
     @Test
     void query() {
-        List<Movie> movies = movieService.queryAll("t", 7.0, "a");
+        List<Movie> movies = movieService.queryAll("t", 7.656357981625741, "a");
         System.out.println(movies);
     }
 
@@ -33,9 +34,20 @@ class MovieServiceTest {
     }
 
     @Test
-    void queryByNativeJson(){
+    void queryByNativeJson() {
         List<Movie> movies = movieService.queryByNativeJson("am", 6.0);
         System.out.println(movies.size());
         System.out.println(movies);
+    }
+
+    @Test
+    void queryPage() {
+        Page<Movie> pageList = movieService.pageList(1, 10, "am", 9.0);
+        System.out.println(pageList);
+    }
+
+    @Test
+    void update() {
+
     }
 }

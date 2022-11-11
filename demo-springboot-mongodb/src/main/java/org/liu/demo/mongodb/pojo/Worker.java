@@ -1,7 +1,6 @@
 package org.liu.demo.mongodb.pojo;
 
 import lombok.Data;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.util.Date;
 
@@ -11,7 +10,6 @@ import java.util.Date;
  **/
 @Data
 public class Worker {
-    @MongoId
     private String id;
     private String name;
     private String code;

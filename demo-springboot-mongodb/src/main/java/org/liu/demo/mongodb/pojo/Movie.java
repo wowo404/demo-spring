@@ -2,7 +2,6 @@ package org.liu.demo.mongodb.pojo;
 
 import lombok.Data;
 import lombok.ToString;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -14,7 +13,6 @@ import java.util.Date;
 @ToString
 @Data
 public class Movie {
-    @MongoId
     private String id;
     private String title;//标题
     private String[] genres;//分类

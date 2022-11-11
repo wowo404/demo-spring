@@ -1,6 +1,7 @@
 package org.liu.demo.mongodb.service;
 
 import org.liu.demo.mongodb.pojo.Movie;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface MovieService {
     List<Movie> queryByNaming(String title, Double doubanScore);
 
     List<Movie> queryByNativeJson(String title, Double doubanScore);
+
+    Page<Movie> pageList(int page, int size, String title, Double doubanScore);
 }

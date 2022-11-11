@@ -12,3 +12,6 @@ spring:
       uri: mongodb://test:123456@localhost:27017/test
   jpa:
     show-sql: true
+logging:
+  level:
+    org.springframework.data.mongodb.core: debug

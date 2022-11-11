@@ -5,7 +5,6 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.io.Serializable;
 
@@ -17,7 +16,6 @@ public class Company implements Serializable {
     /**
      * ID
      */
-    @MongoId
     private String id;
     /**
      * 组织机构代码
