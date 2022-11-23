@@ -23,6 +23,7 @@
         <module>demo-springboot-cors</module>
         <module>demo-springboot-cors</module>
         <module>demo-springboot-shardingsphere</module>
+        <module>demo-springboot-mockito</module>
     </modules>
 
 	<properties>
