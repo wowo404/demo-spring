@@ -3,6 +3,7 @@ package org.liu.demo.mongodb.pojo;
 import lombok.Data;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -20,6 +21,7 @@ public class Company implements Serializable {
     /**
      * 组织机构代码
      */
+    @Indexed
     @Field("organization_code")
     private String organizationCode;
     /**

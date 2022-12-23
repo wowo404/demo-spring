@@ -8,4 +8,6 @@ import org.liu.demo.mongodb.pojo.Company;
  **/
 public interface CompanyService {
     String add(Company company);
+
+    Company findById(String id);
 }
