@@ -86,4 +86,15 @@ public class MovieServiceImpl implements MovieService {
         PageRequest pageRequest = PageRequest.of(page - 1, size);
         return movieRepository.pageByNativeJson(title, doubanScore, pageRequest);
     }
+
+    @Override
+    public void update(Movie movie) {
+        //save方法：id存在时，会做更新，但会更新所有的字段
+        movieRepository.save(movie);
+    }
+
+    @Override
+    public Movie findById(String id) {
+        return movieRepository.findById(id).orElse(null);
+    }
 }

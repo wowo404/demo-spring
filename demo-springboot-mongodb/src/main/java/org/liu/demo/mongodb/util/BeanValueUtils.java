@@ -34,11 +34,11 @@ public class BeanValueUtils {
         } else if (simpleTypeName.equals("Integer")) {
             return RandomUtil.randomInt(Integer.MAX_VALUE);
         } else if (simpleTypeName.equals("Double")) {
-            return RandomUtil.randomDouble();
+            return RandomUtil.randomDouble(9999999.99);
         } else if (simpleTypeName.equals("Short")) {
             return RandomUtil.randomInt(Short.MAX_VALUE);
         } else if (simpleTypeName.equals("BigDecimal")) {
-            return RandomUtil.randomBigDecimal();
+            return RandomUtil.randomBigDecimal(new BigDecimal("100000000"));
         } else if (simpleTypeName.contains("[")) {
             int randomInt = RandomUtil.randomInt(10);
             String arrayTypeName = simpleTypeName.replace("[]", "");

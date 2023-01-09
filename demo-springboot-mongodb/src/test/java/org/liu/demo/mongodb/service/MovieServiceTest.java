@@ -1,11 +1,19 @@
 package org.liu.demo.mongodb.service;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
+import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.liu.demo.mongodb.pojo.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
+import org.springframework.data.mongodb.core.MongoTemplate;
 
+import java.util.Arrays;
 import java.util.List;
 
 @SpringBootTest
@@ -13,6 +21,8 @@ class MovieServiceTest {
 
     @Autowired
     private MovieService movieService;
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     @Test
     void batchInsert() {
@@ -46,8 +56,36 @@ class MovieServiceTest {
         System.out.println(pageList);
     }
 
+    //使用spring data的Repository做update，调用的CrudRepository接口是save
     @Test
     void update() {
+        //这种情况会清空其他字段，只保留当前set了的字段
+        Movie movie = new Movie();
+        movie.setId("635f24c5ab5c763fd439dac8");
+        movie.setTitle("from update");
+        movieService.update(movie);
+    }
 
+    @Test
+    void update1() {
+        Movie movie = movieService.findById("635f24c5ab5c763fd439dac8");
+
+        Movie update = new Movie();
+        update.setId("635f24c5ab5c763fd439dac8");
+        update.setTitle("repositoryApiUpdate1");
+        //拷贝属性，排除null
+        BeanUtil.copyProperties(update, movie, CopyOptions.create().ignoreNullValue());
+
+        movieService.update(movie);
+    }
+
+    //使用mongo原生api做更新
+    @Test
+    void update2() {
+        Bson filter = Filters.eq("_id", new ObjectId("635f24c5ab5c763fd439dac8"));
+        Bson update = Updates.combine(Updates.set("title", "originalApi"),
+                Updates.set("runtime", 120),
+                Updates.addEachToSet("genres", Arrays.asList("sex", "violence")));
+        mongoTemplate.getCollection("movie").updateOne(filter, update);
     }
 }

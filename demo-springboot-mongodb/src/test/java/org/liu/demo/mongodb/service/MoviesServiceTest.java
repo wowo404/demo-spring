@@ -8,11 +8,14 @@ import com.mongodb.client.model.Filters;
 import org.bson.conversions.Bson;
 import org.junit.jupiter.api.Test;
 import org.liu.demo.mongodb.pojo.CountResp;
+import org.liu.demo.mongodb.pojo.Movie;
+import org.liu.demo.mongodb.util.BeanValueUtils;
 import org.liu.demo.mongodb.util.MongoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,6 +28,19 @@ public class MoviesServiceTest {
 
     @Autowired
     private MongoTemplate mongoTemplate;
+
+    @Test
+    void save() throws InvocationTargetException, IllegalAccessException {
+        Movie movie = new Movie();
+        BeanValueUtils.autoSetValue(movie);
+        mongoTemplate.save(movie, "movies");
+    }
+
+    @Test
+    void query(){
+        List<Movie> movies = mongoTemplate.findAll(Movie.class, "movies");
+        System.out.println(movies);
+    }
 
     @Test
     void test() {

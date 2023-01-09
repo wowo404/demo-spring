@@ -19,4 +19,8 @@ public interface MovieService {
     List<Movie> queryByNativeJson(String title, Double doubanScore);
 
     Page<Movie> pageList(int page, int size, String title, Double doubanScore);
+
+    void update(Movie movie);
+
+    Movie findById(String id);
 }
