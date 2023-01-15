@@ -2,8 +2,11 @@ package org.liu.demo.mongodb.service;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import cn.hutool.core.convert.Convert;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
+import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
@@ -54,6 +57,17 @@ class MovieServiceTest {
     void queryPage() {
         Page<Movie> pageList = movieService.pageList(1, 10, "am", 9.0);
         System.out.println(pageList);
+    }
+
+    @Test
+    void queryArray() {
+        FindIterable<Document> findIterable = mongoTemplate.getCollection("movie")
+                .find(Filters.eq("_id", new ObjectId("635f24c5ab5c763fd439dac7")));
+        for (Document document : findIterable) {
+            Object genres = document.get("genres");
+            String[] list = Convert.toStrArray(genres);
+            System.out.println(Arrays.toString(list));
+        }
     }
 
     //使用spring data的Repository做update，调用的CrudRepository接口是save
