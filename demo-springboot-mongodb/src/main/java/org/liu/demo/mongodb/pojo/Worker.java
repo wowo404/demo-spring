@@ -1,6 +1,7 @@
 package org.liu.demo.mongodb.pojo;
 
 import lombok.Data;
+import org.springframework.data.mongodb.core.index.Indexed;
 
 import java.util.Date;
 
@@ -12,6 +13,7 @@ import java.util.Date;
 public class Worker {
     private String id;
     private String name;
+    @Indexed
     private String code;
     private String position;
     private String department;

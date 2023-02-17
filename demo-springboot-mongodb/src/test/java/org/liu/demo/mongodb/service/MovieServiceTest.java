@@ -3,9 +3,11 @@ package org.liu.demo.mongodb.service;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.convert.Convert;
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
+import org.bson.BsonArray;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
@@ -101,5 +103,17 @@ class MovieServiceTest {
                 Updates.set("runtime", 120),
                 Updates.addEachToSet("genres", Arrays.asList("sex", "violence")));
         mongoTemplate.getCollection("movie").updateOne(filter, update);
+    }
+
+    //Updates with runCommand
+    @Test
+    void update3() {
+        BsonArray updates = BsonArray.parse("[{q:{_id:ObjectId('635f24c5ab5c763fd439dac8')},u:[{$set:{runtimeMinute:{$multiply:['$runtime',60]}}}]}]");
+
+        BasicDBObject dbObject = new BasicDBObject();
+        dbObject.put("update", "movie");
+        dbObject.put("updates", updates);
+        Document document = mongoTemplate.getDb().runCommand(dbObject);
+        System.out.println(document);
     }
 }
