@@ -47,12 +47,13 @@ class WorkerServiceTest {
     @Test
     void saveWithTpl() {
         Worker worker = new Worker();
-        worker.setName("afds抬头");
-        worker.setCode("jinxa22daa22");
+        worker.setId("636b1784012c816410bbb908");
+        worker.setName("myForest");
+        worker.setCode("text1234");
         worker.setPosition("人体内");
         worker.setDepartment("保护让他人局");
         worker.setOnboardingTime(DateUtil.offsetDay(new Date(), -32));
-        mongoTemplate.save(worker, "work_202211");
+        mongoTemplate.insert(worker, "work_202211");
     }
 
     @Test
