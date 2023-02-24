@@ -86,7 +86,7 @@ class WorkerServiceTest {
     @Test
     void findOne() {
         Query query = new Query();
-        Criteria criteria = Criteria.where("id").is("636b0bc346db0842539ce7b3");
+        Criteria criteria = Criteria.where("_id").is("636b0bc346db0842539ce7b3");
         query.addCriteria(criteria);
 
         Worker one = mongoTemplate.findOne(query, Worker.class, "work_202211");
@@ -96,7 +96,7 @@ class WorkerServiceTest {
     @Test
     void findWithChainCode() {
         Query query = new Query();
-        Criteria criteria = Criteria.where("id").is("636b0bc346db0842539ce7b3");
+        Criteria criteria = Criteria.where("_id").is("636b0bc346db0842539ce7b3");
         query.addCriteria(criteria);
         Worker worker = mongoTemplate.query(Worker.class).inCollection("work_202211").matching(query).firstValue();
         System.out.println(worker);
@@ -124,13 +124,13 @@ class WorkerServiceTest {
     @Test
     void update() {
         Query query = new Query();
-        Criteria criteria = Criteria.where("id").is("636b1784012c816410bbb908");
+        Criteria criteria = Criteria.where("_id").is("636b1784012c816410bbb908");
         query.addCriteria(criteria);
 
         Update update = new Update();
         update.set("name", "abcd1234");
         update.unset("code");
-
+        //第三个参数可有可无
         long count = mongoTemplate.updateFirst(query, update, Worker.class, "work_202211").getModifiedCount();
         System.out.println(count);
     }
@@ -145,7 +145,7 @@ class WorkerServiceTest {
         worker.setCode("ok");
 
         Query query = new Query();
-        Criteria criteria = Criteria.where("id").is("636b0bc346db0842539ce7b3");
+        Criteria criteria = Criteria.where("_id").is("636b0bc346db0842539ce7b3");
         query.addCriteria(criteria);
 
         Worker replaceValue = mongoTemplate.update(Worker.class).inCollection("work_202211").matching(query).replaceWith(worker).findAndReplaceValue();

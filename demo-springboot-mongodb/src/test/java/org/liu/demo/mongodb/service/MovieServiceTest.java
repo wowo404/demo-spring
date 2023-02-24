@@ -116,4 +116,5 @@ class MovieServiceTest {
         Document document = mongoTemplate.getDb().runCommand(dbObject);
         System.out.println(document);
     }
+
 }
