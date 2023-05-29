@@ -1,6 +1,7 @@
 package org.liu.demo.reactive.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,6 +11,7 @@ import java.util.Collection;
  * @Author lzs
  * @Date 2023/5/26 11:19
  **/
+@Table
 public class User implements UserDetails {
 
     @Id

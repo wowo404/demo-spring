@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  * @Author lzs
  * @Date 2023/5/25 17:51
  **/
-@Configuration
+//@Configuration
 public class SecurityConfig {
     @Bean
     MapReactiveUserDetailsService mapReactiveUserDetailsService() {

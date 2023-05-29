@@ -15,8 +15,8 @@ import org.springframework.web.reactive.function.server.ServerResponse;
  * @Author lzs
  * @Date 2023/2/14 14:15
  **/
-@EnableMongoRepositories
-@EnableR2dbcRepositories
+@EnableMongoRepositories(basePackages = {"org.liu.demo.reactive.repository.mongodb"})
+@EnableR2dbcRepositories(basePackages = {"org.liu.demo.reactive.repository.mysql"})
 @Configuration
 public class RouterConfiguration {
     @Bean
