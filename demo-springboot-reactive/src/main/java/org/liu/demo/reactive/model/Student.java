@@ -4,7 +4,8 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.util.Date;
+import java.time.Instant;
+import java.time.LocalDateTime;
 
 /**
  * @Author lzs
@@ -16,5 +17,6 @@ public class Student {
     @Id
     private Long id;
     private String name;
-    private Date createTime;
+    private LocalDateTime fuckTime;
+    private Instant birthday;
 }

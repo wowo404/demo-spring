@@ -1,5 +1,7 @@
 package org.liu.demo.mongodb.service;
 
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
@@ -42,6 +44,13 @@ public class OrderTest {
         mongoTemplate.insert(order);
         //换成save方法则成功，save方法内部会判断id是否存在
         mongoTemplate.save(order);
+    }
+
+    //使用原生api根据_id删除，要用new ObjectId()
+    @Test
+    void delete() {
+        DeleteResult deleteResult = mongoTemplate.getCollection("orders").deleteOne(Filters.eq("_id", new ObjectId("63940a6c5a3f6e3490af0bfa")));
+        System.out.println(deleteResult);
     }
 
 }

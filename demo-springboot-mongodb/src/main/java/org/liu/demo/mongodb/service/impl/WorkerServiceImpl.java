@@ -1,6 +1,7 @@
 package org.liu.demo.mongodb.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.liu.demo.mongodb.pojo.Worker;
 import org.liu.demo.mongodb.repository.WorkerRepository;
 import org.liu.demo.mongodb.service.WorkerService;
@@ -19,7 +20,7 @@ public class WorkerServiceImpl implements WorkerService {
     private final WorkerRepository workerRepository;
 
     @Override
-    public String save(Worker worker) {
+    public ObjectId save(Worker worker) {
         workerRepository.save(worker);
         return worker.getId();
     }

@@ -1,6 +1,8 @@
 package org.liu.demo.mongodb.service;
 
 import cn.hutool.core.date.DateUtil;
+import com.mongodb.client.result.UpdateResult;
+import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.liu.demo.mongodb.pojo.Worker;
@@ -12,8 +14,12 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @SpringBootTest
 class WorkerServiceTest {
@@ -47,7 +53,7 @@ class WorkerServiceTest {
     @Test
     void saveWithTpl() {
         Worker worker = new Worker();
-        worker.setId("636b1784012c816410bbb908");
+        worker.setId(new ObjectId("636b1784012c816410bbb908"));
         worker.setName("myForest");
         worker.setCode("text1234");
         worker.setPosition("人体内");
@@ -59,7 +65,11 @@ class WorkerServiceTest {
     @Test
     void page() {
         Query query = new Query();
+        Criteria andCriteria1 = Criteria.where("code").is("1qaz");
+        Criteria orCriteria = new Criteria();
+        orCriteria.orOperator(Criteria.where("position").is("老鸨"), Criteria.where("position").isNull());
         Criteria criteria = new Criteria();
+        criteria.andOperator(andCriteria1, orCriteria);
         query.addCriteria(criteria);
         long count = mongoTemplate.count(query, Worker.class, "work_202211");
         long totalPage = count / 10 + 1;
@@ -86,10 +96,10 @@ class WorkerServiceTest {
     @Test
     void findOne() {
         Query query = new Query();
-        Criteria criteria = Criteria.where("_id").is("636b0bc346db0842539ce7b3");
+        Criteria criteria = Criteria.where("_id").in(Collections.singletonList("636b0bc346db0842539ce7b3"));
         query.addCriteria(criteria);
 
-        Worker one = mongoTemplate.findOne(query, Worker.class, "work_202211");
+        List<Worker> one = mongoTemplate.find(query, Worker.class, "work_202211");
         System.out.println(one);
     }
 
@@ -150,6 +160,20 @@ class WorkerServiceTest {
 
         Worker replaceValue = mongoTemplate.update(Worker.class).inCollection("work_202211").matching(query).replaceWith(worker).findAndReplaceValue();
         System.out.println(replaceValue);
+    }
+
+    @Test
+    void updateWithBson() {
+        Date now = new Date();
+        DateFormat format = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss z", Locale.ENGLISH);
+        String dateTime = format.format(now);
+        String dateTime1 = DateUtil.formatDate(now) + "T" + DateUtil.formatTime(now) + "Z";
+        String filter = "{_id:ObjectId('636b0bc346db0842539ce7b3')}";
+        Document filterDoc = Document.parse(filter);
+        String set = "{$set:{updateTime:new Date('" + dateTime + "'),onboardingTime:new ISODate('" + dateTime1 + "')}}";
+        Document setDoc = Document.parse(set);
+        UpdateResult updateResult = mongoTemplate.getCollection("work_202211").updateOne(filterDoc, setDoc);
+        System.out.println(updateResult);
     }
 
 }

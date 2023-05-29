@@ -1,6 +1,7 @@
 package org.liu.demo.mongodb.pojo;
 
 import lombok.Data;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.index.Indexed;
 
 import java.util.Date;
@@ -11,11 +12,12 @@ import java.util.Date;
  **/
 @Data
 public class Worker {
-    private String id;
+    private ObjectId id;
     private String name;
     @Indexed
     private String code;
     private String position;
     private String department;
     private Date onboardingTime;
+    private Date updateTime;
 }

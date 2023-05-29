@@ -19,7 +19,7 @@
     <rabbit:connection-factory id="connectionFactory"
                                host="${mq.host}"
                                port="${mq.port}"
-                               username="${mq.user}"
+                               username="${mq.dog}"
                                password="${mq.pwd}"
                                virtual-host="${mq.vhost}"/>
 
