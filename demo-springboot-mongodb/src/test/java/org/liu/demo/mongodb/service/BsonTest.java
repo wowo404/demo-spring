@@ -1,5 +1,6 @@
 package org.liu.demo.mongodb.service;
 
+import org.bson.BsonInt32;
 import org.bson.BsonValue;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -35,12 +36,19 @@ public class BsonTest {
         sb.append("}}");
         Document document = Document.parse(sb.toString());
         BsonValue bsonValue = document.toBsonDocument().get("$set");
-        BsonValue name = bsonValue.asDocument().remove("name");
+        BsonValue name = bsonValue.asDocument().remove("name");//移除一个条件
         System.out.println(name);
         System.out.println(bsonValue);
 
+        bsonValue.asDocument().append("age", new BsonInt32(16));//添加一个条件
+
         document.replace("$set", bsonValue);
         System.out.println(document);
+    }
+
+    @Test
+    public void testBson3(){
+
     }
 
 }

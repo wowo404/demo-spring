@@ -1,8 +1,11 @@
 package org.liu.demo.mongodb.service;
 
 import cn.hutool.core.date.DateUtil;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.liu.demo.mongodb.pojo.Worker;
@@ -16,10 +19,7 @@ import org.springframework.data.mongodb.core.query.Update;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @SpringBootTest
 class WorkerServiceTest {
@@ -163,6 +163,59 @@ class WorkerServiceTest {
     }
 
     @Test
+    void updateWithObject2() {
+        Worker worker = new Worker();
+        worker.setId(new ObjectId("636b0bc346db0842539ce7b3"));
+        worker.setName("John");
+        worker.setCode("ok");
+        worker.setPosition("manager");
+
+        Worker replaceValue = mongoTemplate.update(Worker.class).inCollection("work_202211").replaceWith(worker).findAndReplaceValue();
+        System.out.println(replaceValue);
+    }
+
+    //将POJO转成Document，不指定Class，更新数据
+    @Test
+    void updateWithObject3() {
+        Worker worker = new Worker();
+        worker.setId(new ObjectId("636b0bc346db0842539ce7b3"));
+        worker.setName("Sunny");
+        worker.setCode("123");
+        worker.setPosition("programmer");
+        worker.setDepartment("development");
+
+        Document document = new Document();
+        mongoTemplate.getConverter().write(worker, document);
+        Update update = Update.fromDocument(document);
+
+        Query query = new Query(Criteria.where("_id").is("636b0bc346db0842539ce7b3"));
+
+        UpdateResult updateResult = mongoTemplate.updateFirst(query, update, "work_202211");
+        System.out.println(updateResult);
+    }
+
+    @Test
+    void updateWithMongoApi() {
+        Worker worker = new Worker();
+//        worker.setId(new ObjectId("636b0bc346db0842539ce7b3"));
+        worker.setName("James");
+        worker.setCode("a");
+        worker.setPosition("Test Engineer");
+        worker.setDepartment("Test Department");
+
+        Document document = new Document();
+        mongoTemplate.getConverter().write(worker, document);
+
+        Bson filters = Filters.eq("_id", new ObjectId("636b0bc346db0842539ce7b3"));
+        List<Bson> updates = new ArrayList<>();
+        for (Map.Entry<String, Object> entry : document.entrySet()) {
+            updates.add(Updates.set(entry.getKey(), entry.getValue()));
+        }
+        UpdateResult updateResult = mongoTemplate.getCollection("work_202211").updateOne(filters, Updates.combine(updates));
+        System.out.println(updateResult);
+    }
+
+    @Test
     void updateWithBson() {
         Date now = new Date();
         DateFormat format = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss z", Locale.ENGLISH);
@@ -170,7 +223,7 @@ class WorkerServiceTest {
         String dateTime1 = DateUtil.formatDate(now) + "T" + DateUtil.formatTime(now) + "Z";
         String filter = "{_id:ObjectId('636b0bc346db0842539ce7b3')}";
         Document filterDoc = Document.parse(filter);
-        String set = "{$set:{updateTime:new Date('" + dateTime + "'),onboardingTime:new ISODate('" + dateTime1 + "')}}";
+        String set = "{$set:{updateTime:new Date('" + dateTime + "'),onboardingTime:new ISODate('" + dateTime1 + "')},$inc:{version: 1}}";
         Document setDoc = Document.parse(set);
         UpdateResult updateResult = mongoTemplate.getCollection("work_202211").updateOne(filterDoc, setDoc);
         System.out.println(updateResult);
