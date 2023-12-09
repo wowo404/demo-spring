@@ -6,6 +6,9 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.junit.jupiter.api.Test;
 
+import java.util.Map;
+import java.util.Set;
+
 /**
  * @Author lzs
  * @Date 2023/2/6 15:37
@@ -48,7 +51,17 @@ public class BsonTest {
 
     @Test
     public void testBson3(){
-
+        StringBuilder sb = new StringBuilder("{$or:[{");
+        sb.append("name").append(":").append("'liu',");
+        sb.append("title").append(":").append("{$regex:'abc'}");
+        sb.append("},");
+        sb.append("{age:{$gte:1}}");
+        sb.append("]}");
+        Document document = Document.parse(sb.toString());
+        Set<Map.Entry<String, BsonValue>> set = document.toBsonDocument().entrySet();
+        for (Map.Entry<String, BsonValue> entry : set) {
+            System.out.println(entry.getKey() + " --- " + entry.getValue());
+        }
     }
 
 }

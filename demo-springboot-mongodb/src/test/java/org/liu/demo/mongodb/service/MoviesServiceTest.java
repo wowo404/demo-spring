@@ -30,7 +30,7 @@ public class MoviesServiceTest {
     private MongoTemplate mongoTemplate;
 
     @Test
-    void save() throws InvocationTargetException, IllegalAccessException {
+    void save() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         Movie movie = new Movie();
         BeanValueUtils.autoSetValue(movie);
         mongoTemplate.save(movie, "movies");

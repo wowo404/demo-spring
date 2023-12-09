@@ -3,6 +3,7 @@ package org.liu.demo.mongodb.util;
 import cn.hutool.core.util.RandomUtil;
 import org.liu.demo.mongodb.pojo.Company;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -13,8 +14,17 @@ import java.math.BigDecimal;
  **/
 public class BeanValueUtils {
 
-    public static <T> void autoSetValue(T source) throws InvocationTargetException, IllegalAccessException {
+    public static <T> void autoSetValue(T source) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         Class<?> clazz = source.getClass();
+//        Field[] declaredFields = clazz.getDeclaredFields();
+//        for (Field field : declaredFields) {
+//            if (!field.getName().equals("id")) {
+//                String setName = "set" + field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
+//                Object value = generateValueByType(field.getDeclaringClass().getSimpleName(), field.getDeclaredAnnotations());
+//                Method method = clazz.getDeclaredMethod(setName, field.getDeclaringClass());
+//                method.invoke(source, value);
+//            }
+//        }
         Method[] declaredMethods = clazz.getDeclaredMethods();
         for (Method method : declaredMethods) {
             if (method.getName().startsWith("set") && !method.getName().equals("setId")) {
@@ -23,6 +33,11 @@ public class BeanValueUtils {
                 method.invoke(source, value);
             }
         }
+    }
+
+    private static Object generateValueByType(String simpleName, Annotation[] annotations) {
+
+        return null;
     }
 
     private static Object generateValueByType(String simpleTypeName) {
@@ -39,6 +54,8 @@ public class BeanValueUtils {
             return RandomUtil.randomInt(Short.MAX_VALUE);
         } else if (simpleTypeName.equals("BigDecimal")) {
             return RandomUtil.randomBigDecimal(new BigDecimal("100000000"));
+        } else if (simpleTypeName.equals("Date")) {
+            return RandomUtil.randomDay(-3000, 3000);
         } else if (simpleTypeName.contains("[")) {
             int randomInt = RandomUtil.randomInt(10);
             String arrayTypeName = simpleTypeName.replace("[]", "");
@@ -66,7 +83,7 @@ public class BeanValueUtils {
         }
     }
 
-    public static void main(String[] args) throws InvocationTargetException, IllegalAccessException {
+    public static void main(String[] args) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         Company company = new Company();
         autoSetValue(company);
         System.out.println(company);
