@@ -15,7 +15,7 @@ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 public class MongoUtils {
 
     public static CodecRegistry getCodecRegistry() {
-        CodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();
+        CodecProvider pojoCodecProvider = PojoCodecProvider.builder().register("org.liu.demo.mongodb.pojo").automatic(true).build();
         return fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
     }
 

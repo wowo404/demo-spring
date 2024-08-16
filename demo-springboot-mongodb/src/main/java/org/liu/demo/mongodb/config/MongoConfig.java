@@ -33,5 +33,4 @@ public class MongoConfig {
         mappingMongoConverter.setCustomConversions(mongoCustomConversions);
         return mappingMongoConverter;
     }
-
 }
