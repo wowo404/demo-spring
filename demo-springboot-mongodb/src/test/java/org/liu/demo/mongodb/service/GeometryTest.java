@@ -3,6 +3,7 @@ package org.liu.demo.mongodb.service;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Indexes;
 import com.mongodb.client.result.InsertOneResult;
 import org.bson.Document;
 import org.junit.jupiter.api.Test;
@@ -29,6 +30,7 @@ public class GeometryTest {
         MongoCollection<Document> collection = mongoTemplate.getCollection("test_geometry");
         InsertOneResult result = collection.insertOne(Document.parse(json));
         System.out.println(result.wasAcknowledged() + "，" + result.getInsertedId());
+        collection.createIndex(Indexes.geo2dsphere("geometry"));
     }
 
     //注意：codecRegistry要注册TestGeometry类或TestGeometry所在的包
