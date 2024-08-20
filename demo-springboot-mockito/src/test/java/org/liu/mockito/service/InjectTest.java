@@ -20,6 +20,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class InjectTest {
 
+    //OrderService依赖了OrderRepository
     @InjectMocks
     private OrderService orderService = new OrderServiceImpl();
 
