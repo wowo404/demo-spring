@@ -12,7 +12,7 @@ import java.math.BigDecimal;
  * @Date 2022/11/23 15:18
  **/
 @Entity
-@Table(name = "order")
+@Table(name = "test_order")
 @Data
 public class Order {
     @Id

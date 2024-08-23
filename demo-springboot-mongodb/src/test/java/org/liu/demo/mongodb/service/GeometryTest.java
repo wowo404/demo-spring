@@ -4,6 +4,8 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Indexes;
+import com.mongodb.client.model.geojson.Polygon;
+import com.mongodb.client.model.geojson.Position;
 import com.mongodb.client.result.InsertOneResult;
 import org.bson.Document;
 import org.junit.jupiter.api.Test;
@@ -41,6 +43,33 @@ public class GeometryTest {
         collection.createIndex(Indexes.geo2dsphere("geometry"));
     }
 
+    @Test
+    public void insertUseMongoApi() {
+        List<Position> exterior = new ArrayList<>();
+        exterior.add(new Position(114.905506,25.917665));
+        exterior.add(new Position(115.242630,25.919517));
+        exterior.add(new Position(115.447925,25.693281));
+        exterior.add(new Position(114.767498,25.671624));
+        exterior.add(new Position(114.905506,25.917665));
+
+        List<Position> holes = new ArrayList<>();
+        holes.add(new Position(115.003004,25.859601));
+        holes.add(new Position(115.132773,25.858983));
+        holes.add(new Position(115.153371,25.785435));
+        holes.add(new Position(115.153371,25.785435));
+        holes.add(new Position(115.003004,25.859601));
+
+        Polygon polygon = new Polygon(exterior, holes);
+
+        TestGeometry testGeometry = new TestGeometry();
+        testGeometry.setType("Feature");
+        testGeometry.setGeometry(polygon);
+        MongoCollection<TestGeometry> collection = mongoTemplate.getCollection("test_geometry")
+                .withCodecRegistry(MongoUtils.getCodecRegistry()).withDocumentClass(TestGeometry.class);
+        InsertOneResult result = collection.insertOne(testGeometry);
+        System.out.println(result.wasAcknowledged() + "，" + result.getInsertedId());
+    }
+
     //注意：codecRegistry要注册TestGeometry类或TestGeometry所在的包
     @Test
     public void query() {
@@ -51,6 +80,7 @@ public class GeometryTest {
         }
     }
 
+    //---------------------------------------------------------------------------------
     //用spring的api插入
     @Test
     public void insertUseSpring() {

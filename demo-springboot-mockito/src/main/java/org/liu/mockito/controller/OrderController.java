@@ -21,6 +21,10 @@ public class OrderController {
 
     private final OrderService orderService;
 
+    /**
+     * 当controller里的方法使用公共响应数据结构时，如果当前请求返回了null，spring不会为此请求设置响应的content-type，
+     * 这会导致mock方法失败，因为我们通常会为mock方法设置期望响应的content-type
+     */
     @GetMapping("get")
     public Order get(Long id) {
         return orderService.findById(id);
