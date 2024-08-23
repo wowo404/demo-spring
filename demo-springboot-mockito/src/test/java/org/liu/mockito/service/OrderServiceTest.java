@@ -17,6 +17,11 @@ public class OrderServiceTest {
     @MockBean
     private OrderService orderService;
 
+    @BeforeEach
+    void beforeAll(){
+        System.out.println("在所有测试方法之前执行，内部嵌套方法也是一样");
+    }
+
     @Test
     public void createOrder() {
         AddOrderReq req = new AddOrderReq();
@@ -27,6 +32,11 @@ public class OrderServiceTest {
     @TestClassOrder(ClassOrderer.OrderAnnotation.class)
     @Nested
     class InnerOrderTest {
+
+        @BeforeEach
+        void beforeInnerAll(){
+            System.out.println("在嵌套类里的所有测试方法之前执行，如果有当前类还有嵌套类，内部嵌套方法也是一样");
+        }
 
         @Order(1)
         @Test
