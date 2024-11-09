@@ -1,5 +1,6 @@
 package org.liu.demo.mongodb.pojo;
 
+import com.mongodb.client.model.geojson.Point;
 import lombok.Data;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -20,4 +21,5 @@ public class Worker {
     private String department;
     private Date onboardingTime;
     private Date updateTime;
+    private Point point;
 }
