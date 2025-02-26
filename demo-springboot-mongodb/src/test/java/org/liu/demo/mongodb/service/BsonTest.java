@@ -4,7 +4,9 @@ import org.bson.BsonInt32;
 import org.bson.BsonValue;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
+import org.liu.demo.mongodb.util.JsonUtils;
 
 import java.util.Map;
 import java.util.Set;
@@ -62,6 +64,16 @@ public class BsonTest {
         for (Map.Entry<String, BsonValue> entry : set) {
             System.out.println(entry.getKey() + " --- " + entry.getValue());
         }
+    }
+
+    @Test
+    public void testJacksonWithBson(){
+        Document document = new Document();
+        document.put("_id", new ObjectId("63687c3ce183ca4252e2b337"));
+        String jsonString = JsonUtils.toJsonString(document);
+        System.out.println(jsonString);
+        Document document1 = JsonUtils.parseObject(jsonString, Document.class);
+        System.out.println(document1);
     }
 
 }
