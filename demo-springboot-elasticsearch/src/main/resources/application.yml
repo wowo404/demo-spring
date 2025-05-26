@@ -1,0 +1,13 @@
+spring:
+  elasticsearch:
+    rest:
+      uris: https://192.168.0.187:9200
+      username: elastic
+      password: eSF+QyD5CNZzOFfSyq0Z
+  data:
+    elasticsearch:
+      client:
+        reactive:
+          endpoints: 127.0.0.1:9200
+          username: elastic
+          password: eSF+QyD5CNZzOFfSyq0Z
