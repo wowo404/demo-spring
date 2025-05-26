@@ -66,9 +66,9 @@ public class TestController {
     }
 
     @GetMapping("testBigDecimal")
-    public String testBigDecimal() {
+    public String testBigDecimal(@RequestParam Long time) {
         PointValueDTO dto = new PointValueDTO();
-        dto.setTime(123456L);
+        dto.setTime(time);
         dto.setCreate_time(new Date());
         dto.setData_source(1);
         dto.setValue(new BigDecimal("123456.333"));

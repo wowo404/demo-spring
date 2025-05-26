@@ -9,10 +9,14 @@ spring:
 #      username: root
 #      password: 123456
 #      database: test
-      uri: mongodb://test:123456@localhost:27017/test
+#      uri: mongodb://test:123456@localhost:27017/test
+#      uri: mongodb://jjpc_ganzhou:123456@192.168.0.34:27017/jingjipucha-ganzhou
+      #集群配置
+      uri: mongodb://liuzhsh:123456@192.168.0.48:27017,192.168.0.53:27017,192.168.0.54:27017/liuzhsh?replicaSet=rs
       auto-index-creation: true
   jpa:
     show-sql: true
 logging:
   level:
+    root: debug
     org.springframework.data.mongodb.core: debug

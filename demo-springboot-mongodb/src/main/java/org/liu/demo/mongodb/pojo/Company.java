@@ -3,11 +3,15 @@ package org.liu.demo.mongodb.pojo;
 import lombok.Data;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.liu.demo.mongodb.annotations.Selection;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
+import java.util.Date;
 
 @ToString
 @Accessors(chain = true)
@@ -115,6 +119,7 @@ public class Company implements Serializable {
     /**
      * 联系方式-移动电话
      */
+    @Pattern(regexp = "1\\d{10}")
     private String contactWayMobilephone;
     /**
      * 联系方式-传真号码
@@ -123,10 +128,12 @@ public class Company implements Serializable {
     /**
      * 联系方式-邮政编码
      */
+    @Pattern(regexp = "[1-9]\\d{9}")
     private String contactWayPostalCode;
     /**
      * 联系方式-电子邮箱
      */
+    @Email
     private String contactWayEmail;
     /**
      * 联系方式-网址
@@ -135,7 +142,7 @@ public class Company implements Serializable {
     /**
      * 行业类别-主要业务活动个数
      */
-    private String industryCategoryNum;
+    private Integer industryCategoryNum;
     /**
      * 行业类别-主要业务活动(或主要产品)
      */
@@ -147,7 +154,7 @@ public class Company implements Serializable {
     /**
      * 登记注册类型
      */
-    private String registrationType;
+    private Integer registrationType;
     /**
      * 企业控股情况
      */
@@ -159,15 +166,16 @@ public class Company implements Serializable {
     /**
      * 开业(成立)时间
      */
-    private String startBusinessTime;
+    private Date startBusinessTime;
     /**
      * 营业状态
      */
-    private String businessStatus;
+    @Selection(options = {"0", "1"})
+    private Integer businessStatus;
     /**
      * 执行会计标准类别
      */
-    private String accountingStandardCategories;
+    private Integer accountingStandardCategories;
     /**
      * 执行企业会计准则情况
      */
@@ -175,75 +183,75 @@ public class Company implements Serializable {
     /**
      * 机构类型
      */
-    private String organizationType;
+    private Integer organizationType;
     /**
      * 产业活动单位数-总数
      */
-    private String industrialActivityNumTotal;
+    private Integer industrialActivityNumTotal;
     /**
      * 产业活动单位数-农林牧渔业
      */
-    private String industrialActivityNumNlmyy;
+    private Integer industrialActivityNumNlmyy;
     /**
      * 产业活动单位数-工业
      */
-    private String industrialActivityNumIndustrial;
+    private Integer industrialActivityNumIndustrial;
     /**
      * 产业活动单位数-建筑业
      */
-    private String industrialActivityNumArchitecture;
+    private Integer industrialActivityNumArchitecture;
     /**
      * 产业活动单位数-批发和零售业
      */
-    private String industrialActivityNumWholesaleAndRetail;
+    private Integer industrialActivityNumWholesaleAndRetail;
     /**
      * 产业活动单位数-住宿和餐饮业
      */
-    private String industrialActivityNumAccommodationCatering;
+    private Integer industrialActivityNumAccommodationCatering;
     /**
      * 产业活动单位数-房地产业
      */
-    private String industrialActivityNumRealEstate;
+    private Integer industrialActivityNumRealEstate;
     /**
      * 产业活动单位数-其他
      */
-    private String industrialActivityNumOther;
+    private Integer industrialActivityNumOther;
     /**
      * 从业人员-期末人数
      */
-    private String practitionerFinalNum;
+    private Integer practitionerFinalNum;
     /**
      * 从业人员-女性
      */
-    private String practitionerFemaleNum;
+    private Integer practitionerFemaleNum;
     /**
      * 企业主要经济指标-营业收入
      */
-    private String mainEconomicIndicatorsOperationRevenue;
+    private Double mainEconomicIndicatorsOperationRevenue;
     /**
      * 企业主要经济指标-营业税金及附加
      */
-    private String mainEconomicIndicatorsTaxSurcharges;
+    private Double mainEconomicIndicatorsTaxSurcharges;
     /**
      * 企业主要经济指标-主营业收入
      */
-    private String mainEconomicIndicatorsMainOperationRevenue;
+    private Double mainEconomicIndicatorsMainOperationRevenue;
     /**
      * 企业主要经济指标-资产总计
      */
-    private String mainEconomicIndicatorsAssetsTotal;
+    private Double mainEconomicIndicatorsAssetsTotal;
     /**
      * 企业主要经济指标-主营业务税金及附加
      */
-    private String mainEconomicIndicatorsMainBusinessTaxExtraCharges;
+    private Double mainEconomicIndicatorsMainBusinessTaxExtraCharges;
     /**
      * 非企业单位支出(费用)
      */
-    private String nonbusinessOfficeExpend;
+    private Double nonbusinessOfficeExpend;
     /**
      * 年末资产
      */
-    private String yearEndAsset;
+    private Double yearEndAsset;
     /**
      * 企业集团情况(限企业集团母公司及成员企业填写)
      */
@@ -303,6 +311,7 @@ public class Company implements Serializable {
     /**
      * 删除标志（0代表存在 1代表删除）
      */
+    @Selection(options = {"0", "1"})
     private Integer delFlag;
 
     /**

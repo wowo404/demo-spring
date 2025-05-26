@@ -53,7 +53,7 @@ class WorkerServiceTest {
     @Test
     void saveWithTpl() {
         Worker worker = new Worker();
-        worker.setId(new ObjectId("636b1784012c816410bbb908"));
+//        worker.setId(new ObjectId("636b1784012c816410bbb908"));
         worker.setName("myForest");
         worker.setCode("text1234");
         worker.setPosition("人体内");
@@ -201,12 +201,12 @@ class WorkerServiceTest {
         worker.setName("James");
         worker.setCode("a");
         worker.setPosition("Test Engineer");
-        worker.setDepartment("Test Department");
+//        worker.setDepartment("Test Department");
 
         Document document = new Document();
         mongoTemplate.getConverter().write(worker, document);
 
-        Bson filters = Filters.eq("_id", new ObjectId("636b0bc346db0842539ce7b3"));
+        Bson filters = Filters.eq("_id", new ObjectId("6716139d921d13601e0c7373"));
         List<Bson> updates = new ArrayList<>();
         for (Map.Entry<String, Object> entry : document.entrySet()) {
             updates.add(Updates.set(entry.getKey(), entry.getValue()));

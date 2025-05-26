@@ -16,6 +16,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.6.RELEASE</version>
+        <relativePath/>
     </parent>
 
     <dependencies>
@@ -36,9 +37,9 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>weixin-java-mp</artifactId>
-            <version>3.4.0</version>
+            <groupId>com.github.wechatpay-apiv3</groupId>
+            <artifactId>wechatpay-java</artifactId>
+            <version>0.2.12</version>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>

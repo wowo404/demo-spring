@@ -1,10 +1,12 @@
 package org.liu.demo.mongodb.service;
 
 import com.mongodb.client.AggregateIterable;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Accumulators;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
+import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.junit.jupiter.api.Test;
 import org.liu.demo.mongodb.pojo.CountResp;
@@ -30,14 +32,14 @@ public class MoviesServiceTest {
     private MongoTemplate mongoTemplate;
 
     @Test
-    void save() throws InvocationTargetException, IllegalAccessException {
+    void save() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         Movie movie = new Movie();
         BeanValueUtils.autoSetValue(movie);
         mongoTemplate.save(movie, "movies");
     }
 
     @Test
-    void query(){
+    void query() {
         List<Movie> movies = mongoTemplate.findAll(Movie.class, "movies");
         System.out.println(movies);
     }
@@ -55,6 +57,15 @@ public class MoviesServiceTest {
         while (iterator.hasNext()) {
             CountResp countResp = iterator.next();
             System.out.println(countResp);
+        }
+    }
+
+    @Test
+    void queryNull() {
+        FindIterable<Document> iterable = mongoTemplate.getCollection("companyLedger")
+                .find(Filters.eq("marchUrl", null));
+        for (Document document : iterable) {
+            System.out.println(document);
         }
     }
 
