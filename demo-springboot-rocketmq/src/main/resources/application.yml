@@ -1,0 +1,7 @@
+server:
+  port: 8080
+rocketmq:
+  name-server: 118.178.142.156:9876
+  producer:
+    group: from-liu
+    send-message-timeout: 10000

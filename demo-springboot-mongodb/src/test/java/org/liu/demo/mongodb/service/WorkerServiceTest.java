@@ -31,23 +31,49 @@ class WorkerServiceTest {
 
     @Test
     void save() {
-        Worker worker = new Worker();
-        worker.setName("章遛蠡");
-        worker.setCode("1234abcd");
-        worker.setPosition("总经理");
-        worker.setDepartment("管理办公室");
-        worker.setOnboardingTime(new Date());
-        workerService.save(worker);
+        for (int i = 0; i < 15; i++) {
+            Worker worker = new Worker();
+            worker.setName("章遛蠡" + i);
+            worker.setCode("1234abcd" + i);
+            worker.setPosition("总经理" + i);
+            worker.setDepartment("管理办公室" + i);
+            worker.setOnboardingTime(new Date());
+            workerService.save(worker);
+        }
     }
 
     @Test
     void pageUseRepository() {
         int page = 1;
         int size = 10;
-        String name = "a";
+        String name = "1";
         Page<Worker> page1 = workerService.pageByNativeJson(page, size, name);
         System.out.println(page1.getTotalElements());
         System.out.println(page1.getContent());
+    }
+
+    @Test
+    void pageByNativeJson() {
+        int page = 1;
+        int size = 10;
+        String name = "1";
+        Page<Worker> page1 = workerService.pageByNativeJsonAndSpel(page, size, name, null);
+        System.out.println(page1.getTotalElements());
+        System.out.println(page1.getContent());
+    }
+
+    @Test
+    void pageByCustom() {
+        Page<Worker> page1 = workerService.pageByCustom(1, 10, "章遛蠡1");
+        System.out.println(page1.getTotalElements());
+        System.out.println(page1.getContent());
+    }
+
+    @Test
+    void pageByExample() {
+        Page<Worker> page = workerService.pageByExample(1, 10, "章遛蠡1");
+        System.out.println(page.getTotalElements());
+        System.out.println(page.getContent());
     }
 
     @Test

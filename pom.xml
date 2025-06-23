@@ -21,13 +21,13 @@
         <module>demo-only-spring</module>
         <module>demo-spring-springmvc-mybatis</module>
         <module>demo-springboot-cors</module>
-        <module>demo-springboot-cors</module>
         <module>demo-springboot-shardingsphere</module>
         <module>demo-springboot-mockito</module>
         <module>demo-springboot-elasticsearch</module>
+        <module>demo-springboot-rocketmq</module>
     </modules>
 
-	<properties>
+    <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 

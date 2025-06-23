@@ -4,6 +4,8 @@ import org.bson.types.ObjectId;
 import org.liu.demo.mongodb.pojo.Worker;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 /**
  * @Author lzs
  * @Date 2022/11/8 14:29
@@ -11,5 +13,13 @@ import org.springframework.data.domain.Page;
 public interface WorkerService {
     ObjectId save(Worker worker);
 
+    List<Worker> findByName(String name);
+
     Page<Worker> pageByNativeJson(int page, int size, String name);
+
+    Page<Worker> pageByNativeJsonAndSpel(int page, int size, String name, String department);
+
+    Page<Worker> pageByCustom(int page, int size, String name);
+
+    Page<Worker> pageByExample(int page, int size, String name);
 }

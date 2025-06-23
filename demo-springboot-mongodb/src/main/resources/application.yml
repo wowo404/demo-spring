@@ -4,15 +4,15 @@ server:
 spring:
   data:
     mongodb:
-#      host: 127.0.0.1
-#      port: 27017
-#      username: root
-#      password: 123456
-#      database: test
-#      uri: mongodb://test:123456@localhost:27017/test
-#      uri: mongodb://jjpc_ganzhou:123456@192.168.0.34:27017/jingjipucha-ganzhou
+      #      host: 118.178.142.156
+      #      port: 27017
+      #      username: batteyUser
+      #      password: battery.47
+      #      database: eladmin
+      #      uri: mongodb://test:123456@localhost:27017/test
+      uri: mongodb://batteyUser:battery.47@118.178.142.156:27017/eladmin?authSource=admin&authMechanism=SCRAM-SHA-1
       #集群配置
-      uri: mongodb://liuzhsh:123456@192.168.0.48:27017,192.168.0.53:27017,192.168.0.54:27017/liuzhsh?replicaSet=rs
+      #      uri: mongodb://liuzhsh:123456@192.168.0.48:27017,192.168.0.53:27017,192.168.0.54:27017/liuzhsh?replicaSet=rs
       auto-index-creation: true
   jpa:
     show-sql: true

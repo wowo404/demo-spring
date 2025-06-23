@@ -1,5 +1,6 @@
 package org.liu.websocket.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import java.util.Map;
  * @Date 2023/9/16 16:24
  **/
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Builder
 public class FileUploadDTO {
