@@ -36,6 +36,7 @@ public class MoviesServiceTest {
         Movie movie = new Movie();
         BeanValueUtils.autoSetValue(movie);
         mongoTemplate.save(movie, "movies");
+        System.out.println(movie);//save操作后会自动向movie对象注入了id
     }
 
     @Test

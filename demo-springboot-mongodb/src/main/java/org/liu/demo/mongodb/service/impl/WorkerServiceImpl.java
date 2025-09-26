@@ -3,6 +3,7 @@ package org.liu.demo.mongodb.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
 import org.liu.demo.mongodb.pojo.Worker;
+import org.liu.demo.mongodb.pojo.req.WorkerReq;
 import org.liu.demo.mongodb.repository.WorkerRepository;
 import org.liu.demo.mongodb.service.WorkerService;
 import org.springframework.data.domain.Example;
@@ -45,6 +46,12 @@ public class WorkerServiceImpl implements WorkerService {
     public Page<Worker> pageByNativeJsonAndSpel(int page, int size, String name, String department) {
         PageRequest pageRequest = PageRequest.of(page - 1, size);
         return workerRepository.pageByNativeJsonAndSpel(name, department, pageRequest);
+    }
+
+    @Override
+    public Page<Worker> pageByNativeJsonAndSpel2(int page, int size, WorkerReq req) {
+        PageRequest pageRequest = PageRequest.of(page - 1, size);
+        return workerRepository.pageByNativeJsonAndSpel2(req, pageRequest);
     }
 
     @Override

@@ -2,6 +2,7 @@ package org.liu.demo.mongodb.service;
 
 import org.bson.types.ObjectId;
 import org.liu.demo.mongodb.pojo.Worker;
+import org.liu.demo.mongodb.pojo.req.WorkerReq;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -18,6 +19,8 @@ public interface WorkerService {
     Page<Worker> pageByNativeJson(int page, int size, String name);
 
     Page<Worker> pageByNativeJsonAndSpel(int page, int size, String name, String department);
+
+    Page<Worker> pageByNativeJsonAndSpel2(int page, int size, WorkerReq req);
 
     Page<Worker> pageByCustom(int page, int size, String name);
 

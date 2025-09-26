@@ -17,7 +17,7 @@ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 public class MongoUtils {
 
     public static CodecRegistry getCodecRegistry() {
-        //mongodb内置不支持bson array与java的数组的互相转换，使用List或Set
+        //mongodb内置不支持bson array与java的数组的互相转换，使用List或Set就可以
         //这个自定义的Codec只是为了测试及深入了解mongodb的api，实际情况下用不上
         CodecRegistry codecRegistry = CodecRegistries.fromCodecs(new StringArrayCodec());
         CodecProvider pojoCodecProvider = PojoCodecProvider.builder().register("org.liu.demo.mongodb.pojo").automatic(true).build();

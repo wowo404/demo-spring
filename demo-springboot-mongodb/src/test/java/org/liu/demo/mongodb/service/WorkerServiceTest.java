@@ -9,6 +9,7 @@ import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.liu.demo.mongodb.pojo.Worker;
+import org.liu.demo.mongodb.pojo.req.WorkerReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
@@ -58,6 +59,18 @@ class WorkerServiceTest {
         int size = 10;
         String name = "1";
         Page<Worker> page1 = workerService.pageByNativeJsonAndSpel(page, size, name, null);
+        System.out.println(page1.getTotalElements());
+        System.out.println(page1.getContent());
+    }
+
+    @Test
+    void pageByNativeJson2() {
+        int page = 1;
+        int size = 10;
+        WorkerReq req = new WorkerReq();
+        req.setName("1");
+        req.setDepartment(null);
+        Page<Worker> page1 = workerService.pageByNativeJsonAndSpel2(page, size, req);
         System.out.println(page1.getTotalElements());
         System.out.println(page1.getContent());
     }
@@ -255,4 +268,9 @@ class WorkerServiceTest {
         System.out.println(updateResult);
     }
 
+    @Test
+    void findByName() {
+        List<Worker> list = workerService.findByName("章遛蠡12");
+        System.out.println(list);
+    }
 }

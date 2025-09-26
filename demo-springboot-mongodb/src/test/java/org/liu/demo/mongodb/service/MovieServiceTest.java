@@ -79,6 +79,8 @@ class MovieServiceTest {
         Movie movie = new Movie();
         movie.setId("635f24c5ab5c763fd439dac8");
         movie.setTitle("from update");
+        movie.setDoubanScore(1.2);
+        movie.setFirstManActor("Sam");
         movieService.update(movie);
     }
 
@@ -117,4 +119,11 @@ class MovieServiceTest {
         System.out.println(document);
     }
 
+    @Test
+    void pageByExample() {
+        Page<Movie> movies = movieService.pageByExample("update", 1.2, "Sam", 0, 10);
+        System.out.println(movies.getTotalPages());
+        System.out.println(movies.getTotalElements());
+        System.out.println(movies.getContent());
+    }
 }

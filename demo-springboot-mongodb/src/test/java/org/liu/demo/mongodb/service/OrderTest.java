@@ -7,6 +7,7 @@ import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
+import org.liu.demo.mongodb.enums.SexEnum;
 import org.liu.demo.mongodb.pojo.Order;
 import org.liu.demo.mongodb.util.MongoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,9 +50,17 @@ public class OrderTest {
         order.setCreateTime(new Date());
         order.setItemIds(Arrays.asList(1, 2, 3));
         order.setFuckers(new String[]{"good", "bad"});
+        order.setSex(SexEnum.FEMALE);//枚举字段，存入数据库的值是 FEMALE
 //        mongoTemplate.insert(order);
         //换成save方法则成功，save方法内部会判断id是否存在
         mongoTemplate.save(order, "test_order");
+    }
+
+    @Test
+    void query() {
+        //sex字段为枚举，可以自动转换
+        Order order = mongoTemplate.findById("63941a6c5a3f6e3490af0bfa", Order.class, "test_order");
+        System.out.println(order);
     }
 
     @Test
@@ -73,7 +82,7 @@ public class OrderTest {
      * 只是为了测试和深入了解api
      */
     @Test
-    void readBsonArrayToJavaArray(){
+    void readBsonArrayToJavaArray() {
         FindIterable<Order> iterable = mongoTemplate.getCollection("test_order").withCodecRegistry(MongoUtils.getCodecRegistry()).find(Order.class);
         for (Order order : iterable) {
             System.out.println(order);

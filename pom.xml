@@ -13,7 +13,6 @@
         <module>demo-spring-websocket</module>
         <module>demo-spring-rabbitmq</module>
         <module>demo-spring-lettuce</module>
-        <module>demo-springboot-activiti</module>
         <module>demo-springboot-rabbitmq</module>
         <module>demo-springboot-wechat-mp</module>
         <module>demo-springboot-mongodb</module>
@@ -24,10 +23,13 @@
         <module>demo-springboot-shardingsphere</module>
         <module>demo-springboot-mockito</module>
         <module>demo-springboot-elasticsearch</module>
+        <module>demo-springboot-reactive</module>
         <module>demo-springboot-rocketmq</module>
     </modules>
 
     <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 

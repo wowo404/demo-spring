@@ -2,6 +2,7 @@ package org.liu.demo.mongodb.pojo;
 
 import lombok.Data;
 import org.bson.types.ObjectId;
+import org.liu.demo.mongodb.enums.SexEnum;
 
 import java.util.Date;
 import java.util.List;
@@ -17,4 +18,5 @@ public class Order {
     private Date createTime;
     private List<Integer> itemIds;
     private String[] fuckers;//不要这样使用，使用List代替，mongodb的java驱动不支持bson array和java数组的互相转换
+    private SexEnum sex;
 }

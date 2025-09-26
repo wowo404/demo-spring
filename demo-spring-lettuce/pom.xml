@@ -13,11 +13,8 @@
     <packaging>war</packaging>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
         <slf4j.version>1.7.25</slf4j.version>
-        <springframework.version>5.0.7.RELEASE</springframework.version>
+        <spring-framework.version>5.3.24</spring-framework.version>
     </properties>
 
     <dependencies>
@@ -30,22 +27,22 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>${springframework.version}</version>
+            <version>${spring-framework.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
-            <version>${springframework.version}</version>
+            <version>${spring-framework.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>${springframework.version}</version>
+            <version>${spring-framework.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>${springframework.version}</version>
+            <version>${spring-framework.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.data</groupId>

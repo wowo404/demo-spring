@@ -71,6 +71,22 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public Page<Movie> pageByExample(String title, Double doubanScore, String firstManActor, int page, int size) {
+        Movie movie = new Movie();
+        movie.setTitle(title);
+        movie.setDoubanScore(doubanScore);
+        movie.setFirstManActor(firstManActor);
+
+        ExampleMatcher exampleMatcher = ExampleMatcher.matching()
+                .withMatcher("title", ExampleMatcher.GenericPropertyMatcher::contains)
+                .withMatcher("firstManActor", ExampleMatcher.GenericPropertyMatcher::contains);
+        //ExampleMatcher如何使用日期范围查询？？
+
+        PageRequest pageRequest = PageRequest.of(page, size);//page是从0开始
+        return movieRepository.findAll(Example.of(movie, exampleMatcher), pageRequest);
+    }
+
+    @Override
     public List<Movie> queryByNaming(String title, Double doubanScore) {
         Sort sort = Sort.by(Sort.Order.asc("runTime"), Sort.Order.desc("year"));
         return movieRepository.findByTitleContainingAndDoubanScoreGreaterThanEqual(title, doubanScore, sort);

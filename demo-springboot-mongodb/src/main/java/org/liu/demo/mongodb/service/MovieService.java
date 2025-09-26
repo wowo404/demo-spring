@@ -14,6 +14,8 @@ public interface MovieService {
 
     List<Movie> queryAll(String title, Double doubanScore, String firstManActor);
 
+    Page<Movie> pageByExample(String title, Double doubanScore, String firstManActor, int page, int size);
+
     List<Movie> queryByNaming(String title, Double doubanScore);
 
     List<Movie> queryByNativeJson(String title, Double doubanScore);
