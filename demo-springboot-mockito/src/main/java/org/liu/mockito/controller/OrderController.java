@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.TimeZone;
 
 /**
  * @author lzs
@@ -27,7 +28,9 @@ public class OrderController {
      */
     @GetMapping("get")
     public Order get(Long id) {
-        return orderService.findById(id);
+        Order order = orderService.findById(id);
+        System.out.println(order);
+        return order;
     }
 
     @PutMapping
@@ -37,12 +40,15 @@ public class OrderController {
 
     @PostMapping("save")
     public void save(@RequestBody Order order) {
-        System.out.println(order);
+        System.out.println(order.getInstant().toEpochMilli());
+        System.out.println(order.getZonedDateTime().getZone());
+        System.out.println(TimeZone.getDefault());
+        orderService.save(order);
     }
 
     @DeleteMapping
-    public void delete(Long id){
-        System.out.println("delete success：" + id);
+    public void delete(Long id) {
+        orderService.delete(id);
     }
 
     @PostMapping("upload")

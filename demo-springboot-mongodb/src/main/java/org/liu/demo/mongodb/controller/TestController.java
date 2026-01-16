@@ -17,7 +17,7 @@ import org.bson.codecs.*;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.conversions.Bson;
-import org.liu.demo.mongodb.constant.Constant;
+import org.liu.demo.mongodb.constant.Constants;
 import org.liu.demo.mongodb.pojo.PointValueDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -135,7 +135,7 @@ public class TestController {
     public String createIndex() {
         Set<String> collectionNames = mongoTemplate.getCollectionNames();
         for (String collectionName : collectionNames) {
-            if (collectionName.startsWith(Constant.H_FIVE_MIN) || collectionName.startsWith(Constant.H_FIFTEEN_MIN)) {
+            if (collectionName.startsWith(Constants.H_FIVE_MIN) || collectionName.startsWith(Constants.H_FIFTEEN_MIN)) {
                 IndexOperations indexOperations = mongoTemplate.indexOps(collectionName);
                 indexOperations.ensureIndex(new Index().on("time", Sort.Direction.DESC));
                 indexOperations.ensureIndex(new Index().on("value_id", Sort.Direction.ASC));
@@ -144,7 +144,7 @@ public class TestController {
                 indexOperations.ensureIndex(new Index().on("ev_id", Sort.Direction.ASC));
                 indexOperations.ensureIndex(new Index().on("time", Sort.Direction.DESC));
                 indexOperations.ensureIndex(new Index().on("value_id", Sort.Direction.ASC));
-            } else if (collectionName.startsWith(Constant.POINT_VALUE_PREFIX)) {
+            } else if (collectionName.startsWith(Constants.POINT_VALUE_PREFIX)) {
                 IndexOperations indexOperations = mongoTemplate.indexOps(collectionName);
                 indexOperations.ensureIndex(new Index().on("value_id", Sort.Direction.ASC));
             }
@@ -159,7 +159,7 @@ public class TestController {
     public String removeIndex(String indexName) {
         Set<String> collectionNames = mongoTemplate.getCollectionNames();
         for (String collectionName : collectionNames) {
-            if (!collectionName.startsWith(Constant.POINT_VALUE_PREFIX)) {
+            if (!collectionName.startsWith(Constants.POINT_VALUE_PREFIX)) {
                 continue;
             }
             IndexOperations indexOperations = mongoTemplate.indexOps(collectionName);
@@ -181,7 +181,7 @@ public class TestController {
     public void checkDuplicateData() {
         Set<String> collectionNames = mongoTemplate.getCollectionNames();
         for (String collectionName : collectionNames) {
-            if (!collectionName.startsWith(Constant.POINT_VALUE_PREFIX)) {
+            if (!collectionName.startsWith(Constants.POINT_VALUE_PREFIX)) {
                 continue;
             }
             MongoCollection<Document> collection = mongoTemplate.getCollection(collectionName);
@@ -213,7 +213,7 @@ public class TestController {
         Map<String, List<CountResp>> map = new HashMap<>();
         Set<String> collectionNames = mongoTemplate.getCollectionNames();
         for (String collectionName : collectionNames) {
-            if (!collectionName.startsWith(Constant.POINT_VALUE_PREFIX)) {
+            if (!collectionName.startsWith(Constants.POINT_VALUE_PREFIX)) {
                 continue;
             }
 
@@ -243,7 +243,7 @@ public class TestController {
         Map<String, List<String>> map = new HashMap<>();
         Set<String> collectionNames = mongoTemplate.getCollectionNames();
         for (String collectionName : collectionNames) {
-            if (!collectionName.startsWith(Constant.POINT_VALUE_PREFIX)) {
+            if (!collectionName.startsWith(Constants.POINT_VALUE_PREFIX)) {
                 continue;
             }
             List<Bson> bsons = Arrays.asList(
@@ -271,7 +271,7 @@ public class TestController {
         AggregationResults<PointValueDTO> aggregationResults = mongoTemplate.aggregate(aggregation, "pointValueDTO", PointValueDTO.class);
         List<PointValueDTO> mappedResults = aggregationResults.getMappedResults();
         for (PointValueDTO mappedResult : mappedResults) {
-            long count = mongoTemplate.getCollection(Constant.POINT_VALUE_PREFIX + mappedResult.getEv_id()).countDocuments(Filters.eq("time", mappedResult.getTime()));
+            long count = mongoTemplate.getCollection(Constants.POINT_VALUE_PREFIX + mappedResult.getEv_id()).countDocuments(Filters.eq("time", mappedResult.getTime()));
             if (count == 0) {
                 list.add(mappedResult.getEv_id() + "---" + mappedResult.getTime());
             }

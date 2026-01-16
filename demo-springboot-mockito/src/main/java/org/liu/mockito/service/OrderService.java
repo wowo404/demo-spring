@@ -11,7 +11,12 @@ import java.util.List;
  **/
 public interface OrderService {
     Long createOrder(AddOrderReq req);
+
     Order findById(Long id);
 
     List<Order> findAll();
+
+    void save(Order order);
+
+    void delete(Long id);
 }

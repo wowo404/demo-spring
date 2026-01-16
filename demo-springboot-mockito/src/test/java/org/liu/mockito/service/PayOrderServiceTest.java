@@ -33,7 +33,7 @@ public class PayOrderServiceTest {
     @TestFactory
     public Collection<DynamicTest> testCreateOrder() {
         List<DynamicTest> dynamicTests = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
             DynamicTest dynamicTest = DynamicTest.dynamicTest("createOrder" + i, this::doCreateOrder);
             dynamicTests.add(dynamicTest);
         }
@@ -43,7 +43,7 @@ public class PayOrderServiceTest {
 
     private void doCreateOrder() {
         List<PayOrder> payOrders = new ArrayList<>();
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 100000; i++) {
             PayOrder payOrder = new PayOrder();
             payOrder.setPayId(snowFlake.nextId());
             payOrder.setOrderNo(RandomUtil.randomString(20));
